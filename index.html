@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Simon</title>
+    <link href='http://fonts.googleapis.com/css?family=Leckerli+One' rel='stylesheet' type='text/css'>
+    <script type="text/javascript" charset="utf-8" src="jquery.js"></script>
+    <script type="text/javascript" charset="utf-8" src="simpleSimon.js"></script>
+    <style type="text/css" media="screen">
+      
+    @font-face { 
+      font-family: "Droid";
+      src: url('DroidSans.ttf');
+    } 
+    body {
+        font-family: "Droid",helvetica, sans-serif;
+        padding: 104px 0 60px;
+        background:url("Rosetta_404.jpg") no-repeat center top transparent;
+        color:#5E5E5E;
+     }
+    p, li, a {
+        line-height: 24px;
+        font-size: 13px;
+        margin: 12px 24px 24px 0;
+    }
+    h1, h2, h3 {
+      font-family: "Proforma",Georgia,serif;
+      color:#009DDC;
+      font-weight:normal;
+    }
+    h1 {
+        font: normal 39px/39px "Proforma",Georgia,serif;
+        line-height: 40px;
+        letter-spacing: -1px;
+        margin-bottom: 36px;
+        display: inline-block;
+    }
+    div.main {
+        margin:0 auto;
+        width:960px;
+    }
+    
+    .intro {
+        width: 240px;
+    }
+    
+    ul {padding-left: 12px;}
+    ul.bullets li{
+        background:url(square-bullet.gif) no-repeat scroll left 8px transparent;
+        line-height: 18px;
+        list-style-type: none;
+        margin-bottom: 6px;
+        padding-left: 12px;
+    }
+    ul.bullets li a {
+        color: #058DC4;
+        text-decoration:none;
+        padding:0;
+        margin:0;
+    }
+    
+    #game {margin-right: 36px;}
+    
+    #board {width:440px;}
+    #board div {
+        height:180px;
+        width:180px;
+        float:left;
+        border:14px solid;
+        margin:5px;
+        position:relative;
+    }
+    #board div div {
+        background-color:white;
+        position:absolute;
+        top:-14px;
+        left:-14px;
+        margin:0;
+        box-shadow: 0 0 6px 4px rgba(20,160,232, 1);
+    }
+    
+        #game #board.noShadow div div {
+            box-shadow:none;
+        }
+
+    #board .top.left        {border-radius:60px 5px 0px 5px;}
+    #board .top.right       {border-radius:5px 60px 5px 0px;}
+    #board .bottom.left     {border-radius:5px 0px 5px 60px;}
+    #board .bottom.right    {border-radius:0px 5px 60px 5px;}
+    #board .top.left      div  {border-radius:60px 5px 0px 5px;}
+    #board .top.right     div  {border-radius:5px 60px 5px 0px;}
+    #board .bottom.left   div  {border-radius:5px 0px 5px 60px;}
+    #board .bottom.right  div  {border-radius:0px 5px 60px 5px;}
+    
+    #board div.highLighted {
+        box-shadow: 0 0 2px 6px blue;
+    }
+
+    #board #red     {background-color: #BC1717; border-color: #8C1111;}
+    #board #blue    {background-color: #095B89; border-color: #074B68;}
+    #board #green   {background-color: #2E5B27; border-color: #23421D;}
+    #board #yellow  {background-color: #EADB21; border-color: #D6BC25;}
+    
+    #board #red div     {background-color: #8C1111; border-color: #8C1111; opacity: 0;}
+    #board #blue div    {background-color: #074B68; border-color: #074B68; opacity: 0;}
+    #board #green div   {background-color: #23421D; border-color: #23421D; opacity: 0;}
+    #board #yellow div  {background-color: #D6BC25; border-color: #D6BC25; opacity: 0;}
+    
+    #game #board div div.wrong {
+        background-color:#BC1717;
+        border-color: #8C1111;
+    }
+    
+    #game #board div div.wrong:before {
+        content: "wrong";
+        display: block;
+        text-align: center;
+        font-size: 50px;
+        margin: 50px 0 0;
+        color: #8C1111;
+        text-shadow: 1px 1px 1px rgba(0, 0, 0, .5);
+    }
+    
+    
+    button#start {
+      padding: 12px;
+      width: 160px;
+      background-color: #009DDC;
+      border-radius: 3px;
+      border: 1px solid #0088bf;
+      font-size: 21px;
+      color: white;
+      text-shadow: 1px 1px 0 #0088bf;
+    }
+    
+    #controls {padding: 16px 0 0;}
+    #controls div {text-align:center;}
+    #controls div h3 {
+        font-size: 36px;
+        margin: 22px 0 0;
+    }
+    #controls div h4 {
+        margin: -12px 0 0;
+        font-size: 66px;
+    }
+    
+    #round h4.gameOver {
+        font-size: 28px;
+        line-height: 22px;
+        margin-top: 0px;
+        color: #BC1717;
+    }
+
+    .floatLeft {float:left;}
+    .floatRight {float:right;}
+    .clearfix:before,
+    .clearfix:after {
+        content: ".";    
+        display: block;    
+        height: 0;    
+        overflow: hidden;	
+    }
+    .clearfix:after {clear: both;}
+    .clearfix {zoom: 1;} /* IE < 8 */
+    .replace{font-family: "Leckerli";}
+    
+    </style>
+    </head>
+
+    <body>
+        <div class="main clearfix">
+            <h1>Oops, we lost your page, but we found Simon. Will that do?</h1>
+            <div class="intro floatLeft">
+                <p>To play the game, begin by pressing the start button to the right. As the squares flash, memorize the sequence and then repeat the order when the animation stops.</p>
+                <p>On a more serious note, the page you are requesting cannot be found. Please try the following:</p>
+                <ul class="bullets">
+                    <li>Check the Web address to make sure it is correct.</li>
+                    <li>Use your browser's "Back" button to return to the previous page.</li>
+                    <li>Visit our <a href="http://rosetta.com">home page</a>.</li>
+                </ul>
+            </div>
+
+            <div id="game" class="floatLeft">
+                <div id="board" class="clearfix">
+                    <div class="top left" id="red"><div></div></div>
+                    <div class="top right" id="green"><div></div></div>
+                    <div class="bottom left" id="blue"><div></div></div>
+                    <div class="bottom right" id="yellow"><div></div></div>
+                </div>
+            </div>
+
+            <div id="controls" class="floatLeft">
+                <button type="button" id="start" class="replace">Start game</button>
+                <div id="score">
+                    <h3>Score</h3>
+                    <h4>0</h4>
+                </div>
+                <div id="round">
+                    <h3>Round</h3>
+                    <h4>0</h4>
+                </div>
+            </div>  
+
+        </div>
+        <audio class="audio0">
+                <source src="audio/beep0.mp3"></source>
+                <source src="audio/beep0.ogg"></source>
+        </audio>
+        <audio class="audio1">
+                <source src="audio/beep1.mp3"></source>
+                <source src="audio/beep1.ogg"></source>
+        </audio>
+        <audio class="audio2">
+                <source src="audio/beep2.mp3"></source>
+                <source src="audio/beep2.ogg"></source>
+        </audio>
+        <audio class="audio3">
+                <source src="audio/beep3.mp3"></source>
+                <source src="audio/beep3.ogg"></source>
+        </audio>
+    </body>
+
+    </html>
